@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Spectre.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Spectre.Net.AddUserPage"
+             x:DataType="vm:AddUserViewModel"
+             Title="Add User">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IntToBoolConverter x:Key="IntToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout Spacing="10">
+        <Label Text="Enter your full legal name:" FontSize="18" />
+        <Entry x:Name="_userEntry" Text="{Binding UserName}" />
+        <Button Text="OK" Command="{Binding FinishCommand}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference _userEntry}, Path=Text.Length}" Value="0">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference _userEntry}, Path=Text.Length, Converter={StaticResource IntToBoolConverter}}" Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        <HorizontalStackLayout>
+            <CheckBox IsChecked="{Binding Incognito}" />
+            <Label Text="Incognito " VerticalOptions="Center" />
+            <Label Text=" (Do not save this user to disk)" FontAttributes="Italic" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

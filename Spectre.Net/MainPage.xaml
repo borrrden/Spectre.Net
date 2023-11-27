@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Spectre.ViewModels"
+             x:DataType="vm:MainPageViewModel"
+             x:Class="Spectre.Net.MainPage">
+    <Grid
+        BackgroundColor="#173D50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Image
+            Source="spectre_light.png"
+            HeightRequest="200"
+            Aspect="AspectFit"
+            HorizontalOptions="Center"
+            SemanticProperties.Description="Spectre Logo" />
+        <Picker
+            Grid.Row="1"
+            ItemsSource="{Binding UserList}"
+            SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+            BackgroundColor="#255972"
+            x:Name="_userPicker"
+            Margin="10,0"/>
+        <Grid Grid.Row="2">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding LoggedIn}" Value="False">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid" Binding="{Binding LoggedIn}" Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <VerticalStackLayout BackgroundColor="#173D50" Margin="0,10">
+                    <Button Text="&#xf0fe;" FontFamily="FontAwesomeFree400" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Add a new user to Spectre." Command="{Binding NavigateCommand}" CommandParameter="addUser" />
+                    <Button Text="&#xf56f;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" TranslationX="-6" ToolTipProperties.Text="Import a user from a backup file into Spectre." />
+                    <Button Text="&#xf56e;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" TranslationX="6" ToolTipProperties.Text="Export this user to a backup file." />
+                    <Button Text="&#xf2ed;" FontFamily="FontAwesomeFree400" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Delete this user from Spectre." Command="{Binding DeleteUserCommand}" />
+                    <Button Text="&#xf2ea;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Change the master password for this user." />
+                </VerticalStackLayout>
+                <Button Text="&#xf059;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Command="{Binding NavigateCommand}" CommandParameter="about" ToolTipProperties.Text="Show information on how to use Spectre." />
+            </Grid>
+            <Border BackgroundColor="#255972" Stroke="WhiteSmoke" Grid.Column="1" Margin="10">
+                <Grid BackgroundColor="#255972">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label HorizontalOptions="Center" FontSize="36" FontAttributes="Bold" Text="{Binding SelectedUser, Mode=OneWay}" TextColor="White" />
+                    <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" Margin="10,0">
+                        <Label Text="Master Password:" TextColor="White" />
+                        <Entry IsPassword="True" Text="{Binding Password}" BackgroundColor="#173D50" TextColor="White" ReturnCommand="{Binding PasswordEnteredCommand}"
+                               x:Name="_passwordField"  ReturnCommandParameter="{Binding Text, Source={x:Reference _passwordField}}"/>
+                        <Label Text="{Binding ErrorText}" TextColor="IndianRed" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+            <VerticalStackLayout BackgroundColor="#173D50" Grid.Column="2" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding LoggedIn}" Value="True">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid" Binding="{Binding LoggedIn}" Value="False">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <VerticalStackLayout BackgroundColor="#173D50" Margin="0,10">
+                    <Button Text="&#xf0fe;" FontFamily="FontAwesomeFree400" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Add a new user to Spectre." />
+                    <Button Text="&#xf007;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center"  ToolTipProperties.Text="Show user preferences." Command="{Binding NavigateCommand}" CommandParameter="userPrefs" />
+                    <Button Text="&#xf023;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center"  ToolTipProperties.Text="Sign out and lock user." Command="{Binding LogoutCommand}"/>
+                </VerticalStackLayout>
+                <Button Text="&#xf059;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Command="{Binding NavigateCommand}" CommandParameter="about" ToolTipProperties.Text="Show information on how to use Spectre." />
+            </Grid>
+            <Border BackgroundColor="#255972" Stroke="WhiteSmoke" Grid.Column="1" Margin="10">
+                <Grid BackgroundColor="#255972">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <VerticalStackLayout Margin="10,0">
+                        <Label HorizontalOptions="Center" FontSize="36" FontAttributes="Bold" Text="{Binding SelectedUser, Mode=OneWay}" TextColor="White" />
+                        <Label HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Your password for " TextColor="White"/>
+                                    <Span Text="{Binding SelectedSite, FallbackValue=(null)}" TextColor="White" />
+                                    <Span Text=":" TextColor="White" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="{Binding GeneratedPassword, FallbackValue=(password)}" TextColor="LightGray" HorizontalOptions="Center" FontSize="48" Opacity="0.5"/>
+                        <Label HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding SelectedUser}" TextColor="White" />
+                                    <Span Text="'s password for:" TextColor="White" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Entry BackgroundColor="White" Text="{Binding SiteEntryText, Mode=OneWayToSource}"  />
+                    </VerticalStackLayout>
+
+                    <ListView BackgroundColor="White" Grid.Row="1" Margin="10" ItemsSource="{Binding SavedSites}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding .}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Border>
+            <VerticalStackLayout WidthRequest="100" BackgroundColor="#173D50" Grid.Column="2" Margin="0,10">
+                <Button Text="&#xf1de;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Show site settings." Command="{Binding NavigateCommand}" CommandParameter="siteSettings" />
+                <Button Text="&#xf059;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center"  ToolTipProperties.Text="Show site recovery questions." />
+                <Button Text="&#xf303;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Set/save personal password/login."/>
+                <Button Text="&#xf084;" FontFamily="FontAwesomeSolid900" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Cryptographic site keys."/>
+                <Button Text="&#xf2ed;" FontFamily="FontAwesomeFree400" BackgroundColor="Transparent" FontSize="48" HorizontalOptions="Center" ToolTipProperties.Text="Delete this site from the user."/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+
+</ContentPage>

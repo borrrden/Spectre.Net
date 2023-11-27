@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Spectre.ViewModels"
+             xmlns:api="clr-namespace:Spectre.Net.Api;assembly=Spectre.Net.Api"
+             x:Class="Spectre.Net.UserPreferencesPage"
+             x:DataType="vm:UserPreferencesViewModel"
+             Title="{Binding UserName}">
+    <VerticalStackLayout Spacing="10" Margin="10">
+        <Picker ItemsSource="{Binding AlgorithmChoices}" SelectedItem="{Binding SelectedAlgorithm, Mode=TwoWay}" Title="Default Algorithm:" FontSize="18" />
+        <Picker ItemsSource="{Binding PasswordTypeChoices}" ItemDisplayBinding="{Binding DisplayName}" SelectedItem="{Binding SelectedPasswordType, Mode=TwoWay}" Title="Default Password Type" FontSize="18" />
+        <HorizontalStackLayout>
+            <CheckBox IsChecked="{Binding HiddenPasswords, Mode=TwoWay}" />
+            <Label Text="Hidden Passwords" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        <Button Text="Save" Command="{Binding SaveCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

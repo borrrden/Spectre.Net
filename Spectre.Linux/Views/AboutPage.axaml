@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Spectre.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="800"
+             x:DataType="vm:AboutViewModel"
+             x:Class="Spectre.Linux.Views.AboutPage">
+    <StackPanel Margin="400,0" Spacing="20">
+        <TextBlock TextWrapping="Wrap" Text="The primary goal of this application is to provide a reliable security solution that also makes you independent from your computer. If you lose access to this computer or your data, the application can regenerate all your secrets from scratch on any new device." />
+        <TextBlock FontSize="24" FontWeight="Bold" Text="Persistence" />
+        <TextBlock TextWrapping="Wrap" Text="Though at the core, Master Password does not require the use of any form of data storage, the application does remember the names of the sites you've used in the past to make it easier for you to use them again in the future. All user information is saved in files on your computer at the following location:" />
+        <TextBlock FontFamily="Consolas" Text="{Binding PersistenceLocation}" />
+        <TextBlock TextWrapping="Wrap" Text="You can read, modify, backup or place new files in this location as you see fit. Some people even configure this location to be synced between their different computers using services such as those provided by SpiderOak or Dropbox." />
+        <Button Content="Back" Command="{Binding BackCommand}" />
+        <!--<Label>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenWebsiteCommand}"
+              CommandParameter="https://spectre.app" />
+            </Label.GestureRecognizers>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span TextColor="Blue" Text="https://spectre.app" TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenWebsiteCommand}"
+                                          CommandParameter="https://spectre.app" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                    <Span Text=" - by Maarten Billemont - Ported to C# by Jim Borden" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>-->
+    </StackPanel>
+</UserControl>

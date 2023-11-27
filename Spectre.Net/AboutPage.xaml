@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Spectre.ViewModels"
+             x:Class="Spectre.Net.AboutPage"
+             x:DataType="vm:AboutViewModel"
+             Title="Spectre - v1.0.0">
+    <VerticalStackLayout Margin="400,0" Spacing="20">
+        <Label Text="The primary goal of this application is to provide a reliable security solution that also makes you independent from your computer. If you lose access to this computer or your data, the application can regenerate all your secrets from scratch on any new device." />
+        <Label FontSize="24" FontAttributes="Bold" Text="Persistence" />
+        <Label Text="Though at the core, Master Password does not require the use of any form of data storage, the application does remember the names of the sites you've used in the past to make it easier for you to use them again in the future. All user information is saved in files on your computer at the following location:" />
+        <Label FontFamily="Consolas" Text="{Binding PersistenceLocation}" />
+        <Label Text="You can read, modify, backup or place new files in this location as you see fit. Some people even configure this location to be synced between their different computers using services such as those provided by SpiderOak or Dropbox." />
+        <BoxView HeightRequest="1" />
+        <Label>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenWebsiteCommand}"
+              CommandParameter="https://spectre.app" />
+            </Label.GestureRecognizers>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span TextColor="Blue" Text="https://spectre.app" TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenWebsiteCommand}"
+                                          CommandParameter="https://spectre.app" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                    <Span Text=" -- by Maarten Billemont -- Ported to C# by Jim Borden" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </VerticalStackLayout>
+</ContentPage>

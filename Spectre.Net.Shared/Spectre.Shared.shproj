@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>6279c845-92f8-4333-ab99-3d213163593c</ProjectGuid>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.Default.props" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.props" />
+  <PropertyGroup />
+  <Import Project="Spectre.Net.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
+  <ItemGroup>
+    <UpToDateCheckInput Remove="ViewModels\AboutViewModel.xaml" />
+    <UpToDateCheckInput Remove="ViewModels\BaseViewModel.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbed_Compile Remove="Converters\ISO8601DateTimeConverter.cs" />
+    <_Globbed_Compile Remove="Converters\NonZeroToBoolConverter.cs" />
+    <_Globbed_Compile Remove="Models\SiteTableEntry.cs" />
+    <_Globbed_Compile Remove="Models\UserDefaults.cs" />
+    <_Globbed_Compile Remove="Models\UserListEntry.cs" />
+    <_Globbed_Compile Remove="Services\IAlertService.cs" />
+    <_Globbed_Compile Remove="Services\ILauncher.cs" />
+    <_Globbed_Compile Remove="Services\ISpectreUserKeyProvider.cs" />
+    <_Globbed_Compile Remove="Services\ISpectreUserManager.cs" />
+    <_Globbed_Compile Remove="ViewModels\AboutViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\AboutViewModel.xaml.cs" />
+    <_Globbed_Compile Remove="ViewModels\AddUserViewModel.cs" />
+    <_Globbed_Compile Remove="viewmodels\BaseViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\BaseViewModel.xaml.cs" />
+    <_Globbed_Compile Remove="ViewModels\Interface1.cs" />
+    <_Globbed_Compile Remove="viewmodels\MainPageViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\SiteSettingsViewModel.cs" />
+    <_Globbed_Compile Remove="viewmodels\UserPreferencesViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbled_Page Remove="ViewModels\AboutViewModel.xaml" />
+  </ItemGroup>
+</Project>

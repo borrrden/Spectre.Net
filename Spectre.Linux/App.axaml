@@ -1,0 +1,20 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Spectre.Linux.App"
+             xmlns:local="using:Spectre.Linux"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <FontFamily x:Key="FontAwesomeFree400">/Assets/Fonts/fa-free-400.otf#</FontFamily>
+        <FontFamily x:Key="FontAwesomeSolid900">/Assets/Fonts/fa-solid-900.otf#</FontFamily>
+    </Application.Resources>
+</Application>

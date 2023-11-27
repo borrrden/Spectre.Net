@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Spectre.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:DataType="vm:MainPageViewModel"
+             x:Class="Spectre.Linux.Views.MainPage">
+
+    <Grid
+        Background="#173D50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Svg
+            Path="/Assets/spectre_light.svg"
+            Height="200" HorizontalAlignment="Center" />
+        <ComboBox
+            Grid.Row="1"
+            ItemsSource="{Binding UserList}"
+            SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+            HorizontalAlignment="Stretch"
+            Background="#255972"
+            x:Name="_userPicker"
+            Margin="10,0"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Background="#173D50" Margin="0,10">
+                    <Button Content="&#xf0fe;" FontFamily="{StaticResource FontAwesomeFree400}" Background="Transparent" FontSize="48" HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="addUser" />
+                    <Button Content="&#xf56f;" FontFamily="{StaticResource FontAwesomeSolid900}" Background="Transparent" FontSize="48" HorizontalAlignment="Center" />
+                    <Button Content="&#xf56e;" FontFamily="{StaticResource FontAwesomeSolid900}" Background="Transparent" FontSize="48" HorizontalAlignment="Center" />
+                    <Button Content="&#xf2ed;" FontFamily="{StaticResource FontAwesomeFree400}" Background="Transparent" FontSize="48" HorizontalAlignment="Center" Command="{Binding DeleteUserCommand}" />
+                    <Button Content="&#xf2ea;" FontFamily="{StaticResource FontAwesomeSolid900}" Background="Transparent" FontSize="48" HorizontalAlignment="Center" />
+                </StackPanel>
+                <Button Content="&#xf059;" FontFamily="{StaticResource FontAwesomeSolid900}" Background="Transparent" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Command="{Binding NavigateCommand}" CommandParameter="about" />
+            </Grid>
+            <Border Background="#255972" BorderBrush="WhiteSmoke" Grid.Column="1" Margin="10">
+                <Grid Background="#255972">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" FontWeight="Bold" Text="{Binding SelectedUser, Mode=OneWay}" Foreground="White" />
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="10,0">
+                        <TextBlock Text="Master Password:" Foreground="White" />
+                        <TextBox PasswordChar="*" Text="{Binding Password}" Background="#173D50" Foreground="White" 
+                               x:Name="_passwordField" />
+                        <TextBlock Text="{Binding ErrorText}" Foreground="IndianRed" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+
+</UserControl>
