@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
+using Spectre.Net.Api;
 using Spectre.Services;
 using Spectre.ViewModels;
 

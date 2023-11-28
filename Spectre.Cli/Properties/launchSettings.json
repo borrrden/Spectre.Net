@@ -2,7 +2,7 @@
   "profiles": {
     "Spectre.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "okta -u \"Jim Borden\" -c 5"
+      "commandLineArgs": "google"
     }
   }
 }

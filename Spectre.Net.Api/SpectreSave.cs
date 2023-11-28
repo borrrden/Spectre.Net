@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace Spectre.Models;
+namespace Spectre.Net.Api;
 
 public sealed class SpectreSave
 {

@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Spectre.Linux.Services;
-using Spectre.Linux.ViewModels;
 using Spectre.Linux.Views;
+using Spectre.Net.Api;
 using Spectre.Services;
 using Spectre.ViewModels;
 

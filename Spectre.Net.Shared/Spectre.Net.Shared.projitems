@@ -14,7 +14,6 @@
 		 explicitly included in the projitem, so files can be added from vscode
 		 without manipulating the projitem file.
 	-->
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\ISO8601DateTimeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SiteTableEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserListEntry.cs" />
@@ -22,7 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ILauncherService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ISpectreUserKeyProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ISpectreUserManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddUserViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
@@ -45,8 +43,5 @@
     <ApplicationDefinition Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
     <!-- Make sure XAML files force reevaluation of up-to-date checks -->
     <UpToDateCheckInput Include="$(MSBuildThisFileDirectory)**/*.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)models\SpectreSave.cs" />
   </ItemGroup>
 </Project>

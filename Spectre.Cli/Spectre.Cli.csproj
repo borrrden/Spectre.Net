@@ -7,15 +7,20 @@
     <Nullable>enable</Nullable>
       <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <AssemblyName>spectre</AssemblyName>
+      <TrimmerSingleWarn>false</TrimmerSingleWarn>
+      <AssemblyName>spectre</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console.Cli" Version="0.48.1-preview.0.1" />
+    <PackageReference Include="Spectre.Console.Json" Version="0.48.1-preview.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Spectre.Net.Api\Spectre.Net.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TrimmerRootDescriptor Include="spectre.cli.roots.xml" />
+  </ItemGroup>
 </Project>
