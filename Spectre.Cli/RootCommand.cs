@@ -40,13 +40,15 @@ internal sealed class RootCommmand : Command<RootCommand.Settings>
         var userKey = SpectreAlgorithm.CreateUserKey(username, userSecret, SpectreAlgorithmVersion.v3);
         var siteKey = userKey.CreateSiteKey(settings.Site, (SpectreCounter)settings.Counter, SpectreKeyPurpose.Authentication, null);
         AnsiConsole.WriteLine();
-        AnsiConsole.Write(new Markup($"[bold red]{siteKey.CreatePassword((SpectreResultType)settings.Type)}[/]"));
+        AnsiConsole.Write(new Markup($"[bold red]{siteKey.CreatePassword(Enum.Parse<SpectreResultType>(settings.Type, true))}[/]"));
 
         return 0;
     }
 
     public sealed class Settings : CommandSettings
     {
+        private static readonly string[] AllowedTypeValues = ["maximum", "long", "medium", "short", "basic", "pin"];
+
         [Description("The spectre username to generate the password for")]
         [CommandOption("-u|--username")]
         public string? Username { get; init; }
@@ -58,8 +60,8 @@ internal sealed class RootCommmand : Command<RootCommand.Settings>
 
         [Description("The type of password to generate")]
         [CommandOption("-t|--type")]
-        [DefaultValue((PasswordType)17)]
-        public PasswordType Type { get; init; } = PasswordType.Long;
+        [DefaultValue("Long")]
+        public string Type { get; init; } = "Long";
 
         [Description("The counter to use when generating the password")]
         [CommandOption("-c|--counter")]
@@ -70,41 +72,15 @@ internal sealed class RootCommmand : Command<RootCommand.Settings>
         [CommandOption("--trace")]
         [DefaultValue(false)]
         public bool Trace { get; init; }
-    }
-}
 
-internal sealed class PasswordTypeConverter : TypeConverter
-{
-    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
-    {
-        if (value is int intValue)
+        public override Console.ValidationResult Validate()
         {
-            return (PasswordType)intValue;
-        }
-
-        return base.ConvertFrom(context, culture, value);
-    }
-
-    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
-    {
-        if (value is PasswordType pass)
-        {
-            if (destinationType == typeof(Int32))
+            if (!AllowedTypeValues.Contains(Type.ToLower()))
             {
-                return (int)pass;
+                return Console.ValidationResult.Error("Type must be one of Maximum, Long, Medium, Short, Basic, PIN");
             }
+
+            return Console.ValidationResult.Success();
         }
-
-        return base.ConvertTo(context, culture, value, destinationType);
     }
-}
-
-[TypeConverter(typeof(PasswordTypeConverter))]
-enum PasswordType
-{
-    Basic = (int)SpectreResultType.Basic,
-    Short = (int)SpectreResultType.Short,
-    Medium = (int)SpectreResultType.Medium,
-    Long = (int)SpectreResultType.Long,
-    Maximum = (int)SpectreResultType.Maximum
 }

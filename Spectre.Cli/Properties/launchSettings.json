@@ -2,7 +2,7 @@
   "profiles": {
     "Spectre.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "google"
+      "commandLineArgs": "google -t Foo"
     }
   }
 }

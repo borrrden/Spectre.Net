@@ -20,7 +20,7 @@
     <ProjectReference Include="..\Spectre.Net.Api\Spectre.Net.Api.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <TrimmerRootDescriptor Include="spectre.cli.roots.xml" />
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>

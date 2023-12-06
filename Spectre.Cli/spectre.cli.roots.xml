@@ -1,8 +1,0 @@
-﻿<linker>
-    <assembly fullname="spectre" />
-    <assembly fullname="Spectre.Console.Cli">
-        <type fullname="Spectre.Console.Cli.ExplainCommand" />
-        <type fullname="Spectre.Console.Cli.XmlDocCommand" />
-        <type fullname="Spectre.Console.Cli.VersionCommand" />
-    </assembly>
-</linker>
