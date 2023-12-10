@@ -1,74 +1,49 @@
-﻿using Spectre.Net.Api;
+// -----------------------------------------------------------------------
+// <copyright file="UserDefaults.cs" company="Jim Borden">
+// Copyright (c) Jim Borden. All rights reserved.
+// Licensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Spectre.Net.Api;
 
-namespace Spectre.Models
+namespace Spectre.Models;
+
+/// <summary>
+/// A class which stores and reacts to changes in the default settings for a given user.
+/// </summary>
+public sealed partial class UserDefaults : ObservableObject
 {
-    public sealed class UserDefaults : INotifyPropertyChanged
+    /// <summary>
+    /// Gets the singleton instantions of <see cref="UserDefaults"/>.
+    /// </summary>
+    public static readonly UserDefaults Current = new();
+
+    [ObservableProperty]
+    private SpectreAlgorithmVersion _algorithmVersion = SpectreAlgorithmVersion.Current;
+
+    [ObservableProperty]
+    private SpectreResultType _defaultPasswordType = SpectreResultType.Long;
+
+    [ObservableProperty]
+    private bool _hiddenPasswords;
+
+    private UserDefaults()
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+    }
 
-        public static readonly UserDefaults Current = new UserDefaults();
-
-        private SpectreAlgorithmVersion _algorithmVersion = SpectreAlgorithmVersion.Current;
-        private SpectreResultType _defaultPasswordType = SpectreResultType.Long;
-        private bool _hiddenPasswords;
-
-        public SpectreAlgorithmVersion AlgorithmVersion
-        {
-            get => _algorithmVersion;
-            set
-            {
-                if (_algorithmVersion != value)
-                {
-                    _algorithmVersion = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool HiddenPasswords
-        {
-            get => _hiddenPasswords;
-            set
-            {
-                if (_hiddenPasswords != value)
-                {
-                    _hiddenPasswords = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public SpectreResultType DefaultPasswordType
-        {
-            get => _defaultPasswordType;
-            set
-            {
-                if (_defaultPasswordType != value)
-                {
-                    _defaultPasswordType= value;
-                    OnPropertyChanged();
-                }
-            } 
-        } 
-
-        private UserDefaults() { }
-
-        public void ReadDefaults(UserData userData)
-        {
-            _algorithmVersion = (SpectreAlgorithmVersion)userData.Algorithm;
-            _hiddenPasswords = userData.HidePasswords;
-            _defaultPasswordType = (SpectreResultType)userData.DefaultType;
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string? name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+    /// <summary>
+    /// Applies the given user data.
+    /// </summary>
+    /// <param name="userData">The user data as read from disk.</param>
+    public void ReadDefaults(UserData userData)
+    {
+        // Don't want to fire the event here
+#pragma warning disable MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
+        _algorithmVersion = (SpectreAlgorithmVersion)userData.Algorithm;
+        _hiddenPasswords = userData.HidePasswords;
+        _defaultPasswordType = (SpectreResultType)userData.DefaultType;
+#pragma warning restore MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
     }
 }

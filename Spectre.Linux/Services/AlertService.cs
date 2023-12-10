@@ -1,8 +1,5 @@
 ﻿using Spectre.Services;
 
-using System;
-using System.Threading.Tasks;
-
 namespace Spectre.Linux.Services
 {
     internal sealed class AlertService : IAlertService

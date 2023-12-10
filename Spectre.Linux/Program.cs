@@ -1,7 +1,5 @@
 ﻿using Avalonia;
 
-using System;
-
 namespace Spectre.Linux;
 
 sealed class Program

@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-
-using Spectre.ViewModels;
+﻿using Spectre.ViewModels;
 
 namespace Spectre.Net
 {

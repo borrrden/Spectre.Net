@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Spectre.Services;
+﻿namespace Spectre.Services;
 
 public interface ILauncherService
 {

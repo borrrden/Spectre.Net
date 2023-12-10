@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "layoutRules": {
+      "allowDoWhileOnClosingBrace": true
+    },
+    "documentationRules": {
+      "documentExposedElements": true,
+      "documentInterfaces": true,
+      "documentInternalElements": false,
+      "documentPrivateElements": false,
+      "documentPrivateFields": false,
+      "companyName": "Jim Borden",
+      "copyrightText": "Copyright (c) {companyName}. All rights reserved.\nLicensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.",
+      "headerDecoration": "-----------------------------------------------------------------------"
+    }
+  }
+}

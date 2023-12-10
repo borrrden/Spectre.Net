@@ -1,124 +1,62 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+// -----------------------------------------------------------------------
+// <copyright file="UserPreferencesViewModel.cs" company="Jim Borden">
+// Copyright (c) Jim Borden. All rights reserved.
+// Licensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-
-using Microsoft.Extensions.Logging;
-
 using Spectre.Models;
 using Spectre.Net.Api;
 using Spectre.Services;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Spectre.ViewModels;
 
-public sealed class SaveUserMessage : ValueChangedMessage<bool>
+/// <summary>
+/// The view model for the user preferences page of the app.
+/// </summary>
+/// <param name="navigation">The object that performs page to page navigation.</param>
+public sealed partial class UserPreferencesViewModel(INavigationService navigation) : ObservableObject
 {
-    public SaveUserMessage(bool value) : base(value)
-    {
-    }
-}
-
-public sealed class PasswordType
-{
-    private static readonly IReadOnlyDictionary<SpectreResultType, string> DisplayNameMapping = new Dictionary<SpectreResultType, string>
-    {
-        [SpectreResultType.Maximum] = "Maximum Security",
-        [SpectreResultType.Long] = "Long Password",
-        [SpectreResultType.Medium] = "Medium Password",
-        [SpectreResultType.Short] = "Short Password",
-        [SpectreResultType.Basic] = "Basic Password",
-        [SpectreResultType.PIN] = "PIN Code",
-        [SpectreResultType.Name] = "Name",
-        [SpectreResultType.Phrase] = "Phrase",
-        [SpectreResultType.Personal] = "Saved",
-        [SpectreResultType.Device] = "Private",
-        [SpectreResultType.DeriveKey] = "Binary Key"
-    };
-
-    public SpectreResultType ResultType { get; }
-
-    public string DisplayName => DisplayNameMapping[ResultType];
-
-    public PasswordType(SpectreResultType type)
-    {
-        ResultType = type;
-    }
-
-    public override int GetHashCode()
-    {
-        return ResultType.GetHashCode();
-    }
-
-    public override bool Equals(object? obj)
-    {
-        if (!(obj is PasswordType other))
-        {
-            return false;
-        }
-
-        return other.ResultType == ResultType;
-    }
-}
-
-public sealed partial class UserPreferencesViewModel : ObservableObject
-{
-    [ObservableProperty]
-    private string _userName = "";
+    private readonly INavigationService _navigation = navigation;
+    private readonly UserData _userData = new();
 
     [ObservableProperty]
-    private PasswordType _selectedPasswordType = new PasswordType(SpectreResultType.Long);
+    private string _userName = string.Empty;
 
     [ObservableProperty]
-    private SpectreAlgorithmVersion _selectedAlgorithm;
+    private PasswordType _selectedPasswordType = new(SpectreResultType.Long);
+
+    [ObservableProperty]
+    private SpectreAlgorithmVersion _selectedAlgorithm = SpectreAlgorithmVersion.V3;
 
     [ObservableProperty]
     private bool _hiddenPasswords;
 
-    private UserData _userData = new UserData();
+    /// <summary>
+    /// Gets the possible algorithm choices that the user can use as a default.
+    /// </summary>
+    public IList<SpectreAlgorithmVersion> AlgorithmChoices { get; } = new List<SpectreAlgorithmVersion> { SpectreAlgorithmVersion.V3 };
 
-
-    private readonly ILogger<UserPreferencesViewModel> _logger = SpectreUtil.LoggerFactory.CreateLogger<UserPreferencesViewModel>();
-    private readonly INavigationService _navigation;
-
-    public IList<SpectreAlgorithmVersion> AlgorithmChoices { get; } = new List<SpectreAlgorithmVersion> { SpectreAlgorithmVersion.v3 };
-
+    /// <summary>
+    /// Gets the possible password type choices that the user can use as a default.
+    /// </summary>
     public IList<PasswordType> PasswordTypeChoices { get; } = new List<PasswordType>
     {
-        new PasswordType(SpectreResultType.Maximum),
-        new PasswordType(SpectreResultType.Long),
-        new PasswordType(SpectreResultType.Medium),
-        new PasswordType(SpectreResultType.Short),
-        new PasswordType(SpectreResultType.Basic),
-        new PasswordType(SpectreResultType.PIN),
-        new PasswordType(SpectreResultType.Name),
-        new PasswordType(SpectreResultType.Phrase),
-        new PasswordType(SpectreResultType.Personal),
-        new PasswordType(SpectreResultType.Device),
-        new PasswordType(SpectreResultType.DeriveKey)
+        new(SpectreResultType.Maximum),
+        new(SpectreResultType.Long),
+        new(SpectreResultType.Medium),
+        new(SpectreResultType.Short),
+        new(SpectreResultType.Basic),
+        new(SpectreResultType.PIN),
+        new(SpectreResultType.Name),
+        new(SpectreResultType.Phrase),
+        new(SpectreResultType.Personal),
+        new(SpectreResultType.Device),
+        new(SpectreResultType.DeriveKey)
     };
-
-    public UserPreferencesViewModel(INavigationService navigation)
-    {
-        _navigation = navigation;
-    }
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if(!query.TryGetValue("userData", out var o) || o is not UserData userData) {
-            _logger.LogError("Invalid userData received!");
-            return;
-        }
-
-        UserName = userData.FullName;
-        SelectedPasswordType = PasswordTypeChoices.First(x => (int)x.ResultType == userData.DefaultType);
-        SelectedAlgorithm = (SpectreAlgorithmVersion)userData.Algorithm;
-        HiddenPasswords = userData.HidePasswords;
-        _userData = userData;
-    }
 
     [RelayCommand]
     private async Task Save()

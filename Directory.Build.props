@@ -2,5 +2,15 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <AvaloniaVersion>11.0.2</AvaloniaVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
+    <MinVerVerbosity>normal</MinVerVerbosity>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer" PrivateAssets="All" Version="4.2.0" />
+  </ItemGroup>
 </Project>

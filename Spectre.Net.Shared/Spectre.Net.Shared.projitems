@@ -17,6 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SiteTableEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDefaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserListEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ApplySiteSettingsMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewUserMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IAlertService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ILauncherService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
@@ -25,6 +27,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddUserViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PasswordType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SaveUserMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SiteNameAndData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SiteSettingsChangedMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SiteSettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserPreferencesViewModel.cs" />
     <_Globbled_Page Include="$(MSBuildThisFileDirectory)**/*.xaml" Exclude="@(Page);@(ApplicationDefinition)">

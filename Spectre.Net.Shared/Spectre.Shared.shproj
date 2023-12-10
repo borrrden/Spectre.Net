@@ -20,6 +20,7 @@
     <_Globbed_Compile Remove="Models\SiteTableEntry.cs" />
     <_Globbed_Compile Remove="Models\UserDefaults.cs" />
     <_Globbed_Compile Remove="Models\UserListEntry.cs" />
+    <_Globbed_Compile Remove="NewUserMessage.cs" />
     <_Globbed_Compile Remove="Services\IAlertService.cs" />
     <_Globbed_Compile Remove="Services\ILauncher.cs" />
     <_Globbed_Compile Remove="Services\ISpectreUserKeyProvider.cs" />
@@ -27,10 +28,15 @@
     <_Globbed_Compile Remove="ViewModels\AboutViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\AboutViewModel.xaml.cs" />
     <_Globbed_Compile Remove="ViewModels\AddUserViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\ApplySiteSettingsMessage.cs" />
     <_Globbed_Compile Remove="viewmodels\BaseViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\BaseViewModel.xaml.cs" />
     <_Globbed_Compile Remove="ViewModels\Interface1.cs" />
     <_Globbed_Compile Remove="viewmodels\MainPageViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\PasswordType.cs" />
+    <_Globbed_Compile Remove="ViewModels\SaveUserMessage.cs" />
+    <_Globbed_Compile Remove="ViewModels\SiteNameAndData.cs" />
+    <_Globbed_Compile Remove="ViewModels\SiteSettingsChangedMessage.cs" />
     <_Globbed_Compile Remove="ViewModels\SiteSettingsViewModel.cs" />
     <_Globbed_Compile Remove="viewmodels\UserPreferencesViewModel.cs" />
   </ItemGroup>

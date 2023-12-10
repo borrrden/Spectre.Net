@@ -1,9 +1,5 @@
 ﻿using CommunityToolkit.Maui;
-
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Hosting;
 
 using Spectre.Net.Api;
 using Spectre.Services;
@@ -28,7 +24,7 @@ namespace Spectre.Net
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             builder.Services.AddSingleton<MainPage>();

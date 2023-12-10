@@ -1,11 +1,10 @@
-﻿namespace Spectre.Net.Api
+namespace Spectre.Net.Api;
+
+public interface ISpectreUserKey
 {
-    public interface ISpectreUserKey
-    {
-        string ID { get; }
+    string ID { get; }
 
-        SpectreAlgorithmVersion Version { get; }
+    SpectreAlgorithmVersion Version { get; }
 
-        ISpectreSiteKey CreateSiteKey(string siteName, SpectreCounter keyCounter, SpectreKeyPurpose keyPurpose, string? keyContext);
-    }
+    ISpectreSiteKey CreateSiteKey(string siteName, SpectreCounter keyCounter, SpectreKeyPurpose keyPurpose, string? keyContext);
 }

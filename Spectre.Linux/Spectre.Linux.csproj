@@ -2,7 +2,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
@@ -30,6 +29,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Spectre.Net.Api\Spectre.Net.Api.csproj" />
   </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
+    </ItemGroup>
 
 
   <Import Project="..\Spectre.Net.Shared\Spectre.Net.Shared.projitems" Label="Shared" />

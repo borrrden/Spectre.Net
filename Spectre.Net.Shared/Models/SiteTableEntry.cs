@@ -1,7 +1,5 @@
 ﻿using Spectre.Net.Api;
 
-using System;
-
 namespace Spectre.Models;
 
 public sealed class SiteTableEntry
@@ -21,8 +19,7 @@ public sealed class SiteTableEntry
     {
         SiteName = siteName;
         Exists = spectreSave.Sites.TryGetValue(siteName, out var site);
-        if (Exists)
-        {
+        if (Exists) {
             _algorithm = site!.Algorithm;
             _lastUsed = site.LastUsed;
             Counter = site.Counter;

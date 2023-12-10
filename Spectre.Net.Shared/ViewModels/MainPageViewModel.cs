@@ -1,17 +1,23 @@
+// -----------------------------------------------------------------------
+// <copyright file="MainPageViewModel.cs" company="Jim Borden">
+// Copyright (c) Jim Borden. All rights reserved.
+// Licensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-
 using Spectre.Models;
 using Spectre.Net.Api;
 using Spectre.Services;
 
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Spectre.ViewModels;
 
+/// <summary>
+/// The view model for the main page of the application.
+/// </summary>
 public sealed partial class MainPageViewModel : ObservableObject
 {
     private readonly ISpectreUserKeyProvider _userKeyProvider;
@@ -20,10 +26,10 @@ public sealed partial class MainPageViewModel : ObservableObject
     private readonly IAlertService _alertService;
 
     [ObservableProperty]
-    private ObservableCollection<UserListEntry> _userList = new ObservableCollection<UserListEntry>();
+    private ObservableCollection<UserListEntry> _userList = [];
 
     [ObservableProperty]
-    private UserListEntry _selectedUser = new UserListEntry("", true);
+    private UserListEntry _selectedUser = new(string.Empty, true);
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SelectedSite))]
@@ -34,29 +40,41 @@ public sealed partial class MainPageViewModel : ObservableObject
     private string? _siteEntryText;
 
     [ObservableProperty]
-    private ObservableCollection<SiteTableEntry> _savedSites = new ObservableCollection<SiteTableEntry>();
+    private ObservableCollection<SiteTableEntry> _savedSites = [];
 
     [ObservableProperty]
     private bool _loggedIn = false;
 
     [ObservableProperty]
-    private string _password = "";
+    private string _password = string.Empty;
 
     [ObservableProperty]
-    private string _errorText = "";
+    private string _errorText = string.Empty;
 
-    public SpectreSave? _spectreSave;
+    private SpectreSave? _spectreSave;
     private ISpectreUserKey? _spectreUserKey;
 
-    // This is only used by the XAML designer
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainPageViewModel"/> class.
+    /// </summary>
+    /// <remarks>This is only used by the XAML designer.</remarks>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public MainPageViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
-
     }
 
-    public MainPageViewModel(ISpectreUserKeyProvider userKeyProvider, ISpectreUserManager userManager, INavigationService navigation,
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainPageViewModel"/> class.
+    /// </summary>
+    /// <param name="userKeyProvider">The object that can create a Spectre user key derivation.</param>
+    /// <param name="userManager">The object that can manage user persistence to disk.</param>
+    /// <param name="navigation">The object that handles page to page navigation.</param>
+    /// <param name="alertService">The object that can show graphical alerts.</param>
+    public MainPageViewModel(
+        ISpectreUserKeyProvider userKeyProvider,
+        ISpectreUserManager userManager,
+        INavigationService navigation,
         IAlertService alertService)
     {
         _userKeyProvider = userKeyProvider;
@@ -66,8 +84,7 @@ public sealed partial class MainPageViewModel : ObservableObject
         GetUserList();
         UserDefaults.Current.PropertyChanged += (sender, args) =>
         {
-            if (args.PropertyName == nameof(UserDefaults.HiddenPasswords))
-            {
+            if (args.PropertyName == nameof(UserDefaults.HiddenPasswords)) {
                 OnPropertyChanged(nameof(GeneratedPassword));
             }
         };
@@ -77,6 +94,9 @@ public sealed partial class MainPageViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<MainPageViewModel, SaveUserMessage>(this, (r, e) => r._userManager.UpdateUser(r.SelectedUser.UserName, r._spectreSave!));
     }
 
+    /// <summary>
+    /// Gets a value indicating the password generated from the user input.
+    /// </summary>
     public string GeneratedPassword
     {
         get
@@ -86,23 +106,23 @@ public sealed partial class MainPageViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Gets the currently selected site in the UI.
+    /// </summary>
     public string SelectedSite => SelectedItem?.SiteName ?? string.Empty;
 
     internal void SiteSettingsChanged(string siteName)
     {
-        int index = 0;
-        foreach (var site in SavedSites)
-        {
-            if (site.SiteName == siteName)
-            {
+        var index = 0;
+        foreach (var site in SavedSites) {
+            if (site.SiteName == siteName) {
                 break;
             }
 
             index++;
         }
 
-        if (index < SavedSites.Count)
-        {
+        if (index < SavedSites.Count) {
             SavedSites.RemoveAt(index);
             SavedSites.Insert(index, new SiteTableEntry(_spectreSave!, siteName));
             _userManager.UpdateUser(SelectedUser.UserName, _spectreSave!);
@@ -127,8 +147,7 @@ public sealed partial class MainPageViewModel : ObservableObject
     private async Task Navigate(string destination)
     {
         await _navigation.GoToAsync(destination);
-        switch (destination)
-        {
+        switch (destination) {
             case "userPrefs":
                 break;
             case "siteSettings":
@@ -142,7 +161,7 @@ public sealed partial class MainPageViewModel : ObservableObject
     private string GeneratePassword(string siteName)
     {
         if (_spectreUserKey == null) {
-            return "";
+            return string.Empty;
         }
 
         var siteEntry = SavedSites.FirstOrDefault(x => x.SiteName == siteName);
@@ -154,31 +173,27 @@ public sealed partial class MainPageViewModel : ObservableObject
 
     private void GetUserList()
     {
-        foreach (var user in _userManager.AllUserNames())
-        {
+        foreach (var user in _userManager.AllUserNames()) {
             UserList.Add(new UserListEntry(user, false));
         }
     }
 
     private void GetSavedSites(string? filter = null)
     {
-        if (_spectreSave == null)
-        {
+        if (_spectreSave == null) {
             return;
         }
 
-        bool exactMatchFound = false;
+        var exactMatchFound = false;
         var newSaved = new ObservableCollection<SiteTableEntry>(_spectreSave.Sites
             .Where(x =>
             {
-                if (string.IsNullOrWhiteSpace(filter))
-                {
+                if (string.IsNullOrWhiteSpace(filter)) {
                     exactMatchFound = true;
                     return true;
                 }
 
-                if (!exactMatchFound)
-                {
+                if (!exactMatchFound) {
                     exactMatchFound = x.Key == filter;
                 }
 
@@ -186,8 +201,7 @@ public sealed partial class MainPageViewModel : ObservableObject
             })
             .Select(x => new SiteTableEntry(_spectreSave, x.Key)));
         SavedSites = newSaved;
-        if (!exactMatchFound && filter != null)
-        {
+        if (!exactMatchFound && filter != null) {
             var newSite = new SiteTableEntry(_spectreSave, filter);
             SavedSites.Add(newSite);
         }
@@ -198,11 +212,10 @@ public sealed partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private void PasswordEntered(string pw)
     {
-        _spectreUserKey = _userKeyProvider.CreateUserKey(SelectedUser.UserName, pw, SpectreAlgorithmVersion.v3);
+        _spectreUserKey = _userKeyProvider.CreateUserKey(SelectedUser.UserName, pw, SpectreAlgorithmVersion.V3);
         _spectreSave = _userManager.ReadUser(SelectedUser.UserName) ?? _userManager.CreateUser(SelectedUser.UserName, _spectreUserKey);
 
-        if (_spectreSave.User.KeyID != _spectreUserKey.ID)
-        {
+        if (_spectreSave.User.KeyID != _spectreUserKey.ID) {
             ErrorText = $"Incorrect master password for user: {SelectedUser}";
             _spectreUserKey = null;
             return;
@@ -210,17 +223,16 @@ public sealed partial class MainPageViewModel : ObservableObject
 
         UserDefaults.Current.ReadDefaults(_spectreSave.User);
         GetSavedSites();
-        ErrorText = "";
+        ErrorText = string.Empty;
         LoggedIn = true;
-        Password = "";
+        Password = string.Empty;
     }
 
     [RelayCommand]
     private async Task DeleteUser()
     {
         var result = await _alertService.DisplayAlert("Delete User", $"Delete the user {SelectedUser}?\n\n{SelectedUser}.mpjson", "Yes", "No");
-        if (result)
-        {
+        if (result) {
             _userManager.DeleteUser(SelectedUser.UserName);
             UserList.Remove(SelectedUser);
         }

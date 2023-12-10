@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace Spectre.Net
+﻿namespace Spectre.Net
 {
     public partial class AppShell : Shell
     {

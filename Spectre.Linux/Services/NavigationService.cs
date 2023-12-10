@@ -1,16 +1,9 @@
-﻿using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.Extensions.DependencyInjection;
 
 using Spectre.Services;
 using Spectre.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Spectre.Linux.Services
 {
@@ -29,8 +22,7 @@ namespace Spectre.Linux.Services
 
         public Task BackAsync(IDictionary<string, object>? data = null)
         {
-            if (RootViewModel == null)
-            {
+            if (RootViewModel == null) {
                 throw new InvalidOperationException("RootViewModel not set!");
             }
 
@@ -40,8 +32,7 @@ namespace Spectre.Linux.Services
 
         public Task GoToAsync(string name, IDictionary<string, object>? data = null)
         {
-            if (RootViewModel == null)
-            {
+            if (RootViewModel == null) {
                 throw new InvalidOperationException("RootViewModel not set!");
             }
 

@@ -11,8 +11,6 @@ using Spectre.Net.Api;
 using Spectre.Services;
 using Spectre.ViewModels;
 
-using System;
-
 namespace Spectre.Linux;
 
 public partial class App : Application
@@ -47,8 +45,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         var mainWindowViewModel = new MainWindowViewModel();
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             desktop.MainWindow = new MainWindow
             {
                 DataContext = mainWindowViewModel
