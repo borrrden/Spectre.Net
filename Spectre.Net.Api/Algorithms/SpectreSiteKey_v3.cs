@@ -64,10 +64,13 @@ internal sealed class SpectreSiteKey_v3 : ISpectreSiteKey
         _logger.LogTrace("siteKey.id: {siteKeyID}", this);
     }
 
+    /// <inheritdoc />
     public string ID { get; }
 
+    /// <inheritdoc />
     public SpectreAlgorithmVersion Version => SpectreAlgorithmVersion.V3;
 
+    /// <inheritdoc />
     public string CreatePassword(SpectreResultType type)
     {
         // Deliciously simple, just iterate over a pre-defined template and use the input

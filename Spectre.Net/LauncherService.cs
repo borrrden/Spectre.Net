@@ -1,37 +1,13 @@
-﻿
-/* Unmerged change from project 'Spectre.Net (net8.0-android)'
-Before:
-using Microsoft.Maui.ApplicationModel;
+// -----------------------------------------------------------------------
+// <copyright file="LauncherService.cs" company="Jim Borden">
+// Copyright (c) Jim Borden. All rights reserved.
+// Licensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
-using System.Threading.Tasks;
-After:
-using System.Threading.Tasks;
-using Microsoft.Maui.ApplicationModel;
-*/
+namespace Spectre.Services;
 
-/* Unmerged change from project 'Spectre.Net (net8.0-windows10.0.19041.0)'
-Before:
-using Microsoft.Maui.ApplicationModel;
-
-using System.Threading.Tasks;
-After:
-using System.Threading.Tasks;
-using Microsoft.Maui.ApplicationModel;
-*/
-
-/* Unmerged change from project 'Spectre.Net (net8.0-maccatalyst)'
-Before:
-using Microsoft.Maui.ApplicationModel;
-
-using System.Threading.Tasks;
-After:
-using System.Threading.Tasks;
-using Microsoft.Maui.ApplicationModel;
-*/
-namespace Spectre.Services
+internal sealed class LauncherService : ILauncherService
 {
-    internal sealed class LauncherService : ILauncherService
-    {
-        public Task OpenAsync(string url) => Launcher.OpenAsync(url);
-    }
+    public Task OpenAsync(string url) => Launcher.OpenAsync(url);
 }

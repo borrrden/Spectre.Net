@@ -34,6 +34,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+        <NoWarn>1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -77,6 +78,7 @@
     
 	<ItemGroup>
 	  <_Globbed_Compile Remove="AlertService.cs" />
+	  <_Globbed_Compile Remove="GlobalSuppressions.cs" />
 	  <_Globbed_Compile Remove="LauncherService.cs" />
 	  <_Globbed_Compile Remove="NavigationService.cs" />
 	  <_Globbed_Compile Remove="NewUserMessage2.cs" />

@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// <copyright file="App.axaml.cs" company="Jim Borden">
+// Copyright (c) Jim Borden. All rights reserved.
+// Licensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -13,15 +20,16 @@ using Spectre.ViewModels;
 
 namespace Spectre.Linux;
 
+/// <summary>
+/// The top level object for the Avalonia application.
+/// </summary>
 public partial class App : Application
 {
-    public static IHost AppHost { get; }
-
-    public static IServiceProvider Services => AppHost.Services;
+    private static readonly IHost _appHost;
 
     static App()
     {
-        AppHost = Host.CreateDefaultBuilder().ConfigureServices(serviceCollection =>
+        _appHost = Host.CreateDefaultBuilder().ConfigureServices(serviceCollection =>
         {
             serviceCollection.AddTransient<AboutViewModel>();
             serviceCollection.AddSingleton<MainPageViewModel>();
@@ -37,11 +45,18 @@ public partial class App : Application
         }).Build();
     }
 
+    /// <summary>
+    /// Gets the provider for services for the application (to look up dependency injection classes).
+    /// </summary>
+    public static IServiceProvider Services => _appHost.Services;
+
+    /// <inheritdoc />
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
     }
 
+    /// <inheritdoc />
     public override void OnFrameworkInitializationCompleted()
     {
         var mainWindowViewModel = new MainWindowViewModel();

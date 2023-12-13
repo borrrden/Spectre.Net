@@ -7,12 +7,23 @@
 
 namespace Spectre.Net.Api;
 
+/// <summary>
+/// A purpose for deriving a secret.
+/// </summary>
 public enum SpectreKeyPurpose : byte
 {
-    /** Generate a key for authentication. */
+    /// <summary>
+    /// Generate a key for authentication.
+    /// </summary>
     Authentication,
-    /** Generate a name for identification. */
+
+    /// <summary>
+    /// Generate a name for identification.
+    /// </summary>
     Identification,
-    /** Generate a recovery token. */
+
+    /// <summary>
+    /// Generate a recovery token.
+    /// </summary>
     Recovery
 }

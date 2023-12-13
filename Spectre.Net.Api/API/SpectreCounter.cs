@@ -1,5 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SpectreTypes.cs" company="Jim Borden">
+// -----------------------------------------------------------------------
+// <copyright file="SpectreCounter.cs" company="Jim Borden">
 // Copyright (c) Jim Borden. All rights reserved.
 // Licensed under the GPL-3.0 license. See LICENSE.md file in the project root for full license information.
 // </copyright>
@@ -24,7 +24,7 @@ public enum SpectreCounter : uint
     Initial = 1,
 
     /// <summary>
-    /// The default value for this enumeration
+    /// The default value for this enumeration.
     /// </summary>
     Default = Initial,
 
